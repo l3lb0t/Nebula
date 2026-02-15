@@ -38,6 +38,7 @@
 	var/trauma_val = 0 // Used in calculating softcrit/hardcrit indicators.
 
 	var/decl/species/my_species = owner.get_species()
+	var/decl/bodytype/body = owner.get_bodytype()
 	trauma_val = max(owner.shock_stage, owner.get_shock())/ (my_species.total_health-100)
 
 	for(var/obj/item/organ/external/E in owner.get_external_organs())
@@ -46,6 +47,13 @@
 		var/damage_image = E.get_damage_hud_image()
 		if(damage_image)
 			add_overlay(damage_image)
+		if(E.damage_state == "00")
+			continue
+		var/icon/doll_wounds = new /icon(body.get_damage_overlays(src), E.damage_state)
+		doll_wounds.Blend(get_limb_mask_for(E), ICON_MULTIPLY)
+		doll_wounds.Blend((BP_IS_ROBOTIC(E) ? SYNTH_BLOOD_COLOR : owner.get_blood_color(src)), ICON_MULTIPLY)
+		add_overlay(doll_wounds)
+		add_overlay(image(body.bandages_icon, "[E.icon_state][E.bandage_level()]"))
 
 	// Apply a fire overlay if we're burning.
 	var/crit_markers = get_ui_icon(owner.client?.prefs?.UI_style, HUD_CRIT_MARKER)
@@ -62,5 +70,6 @@
 				add_overlay(image(crit_markers, "hardcrit"))
 		else if(no_damage)
 			add_overlay(image(crit_markers, "fullhealth"))
+
 
 	compile_overlays()
