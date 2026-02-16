@@ -479,11 +479,8 @@
 	// Living specific accuracy modifiers.
 	if(isliving(firer))
 		var/mob/living/user = firer
-		//Not keeping gun active will throw off aim (for non-Masters)
-		if(user.skill_check(SKILL_WEAPONS, SKILL_PROF))
-			stood_still = min(user.l_move_time, last_handled)
-		else
-			stood_still = max(user.l_move_time, last_handled)
+		//Not keeping gun active will throw off aim
+		stood_still = max(user.l_move_time, last_handled)
 
 		stood_still = max(0,round((world.time - stood_still)/10) - 1)
 		if(stood_still)
