@@ -58,6 +58,25 @@
 
 	update_icon()
 
+/obj/item/gun/projectile/shotgun/pump/draw_chambers()
+	var/chamberlist = ""
+	if (chambered)
+		if (chambered.BB)
+			chamberlist += "◉|"
+		else
+			chamberlist += "◎|"
+	else
+		chamberlist += "🌣|"
+	if (length(loaded) > 0)
+		var/obj/item/ammo_casing/first_casing = loaded[1]
+		if (first_casing.BB)
+			chamberlist += "◉"
+		else
+			chamberlist += "◎"
+	else
+		chamberlist += "🌣"
+	return chamberlist
+
 /obj/item/gun/projectile/shotgun/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."

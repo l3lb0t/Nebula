@@ -31,6 +31,9 @@
 	var/mag_remove_sound = 'sound/weapons/guns/interaction/pistol_magout.ogg'
 	var/manual_unload = TRUE //Whether or not the gun can be unloaded by hand.
 
+	//For CYCLE_CASINGS guns
+	var/chamber_offset = 0 //how many empty chambers in the cylinder until you hit a round
+
 	var/is_jammed = 0           //Whether this gun is jammed
 	var/jam_chance = 0          //Chance it jams on fire
 	var/ammo_indicator	   //if true, draw ammo indicator overlays
@@ -323,6 +326,29 @@
 		. += "It has \a [ammo_magazine] loaded."
 	if(user.skill_check(SKILL_WEAPONS, SKILL_ADEPT))
 		. += "Has [getAmmo()] round\s remaining."
+		if (draw_chambers())
+			. += "[draw_chambers()]"
+
+/obj/item/gun/projectile/proc/draw_chambers()
+	if (handle_casings == CYCLE_CASINGS)
+		var/chambers = list()
+		var/empty_chambers = 0
+		while (chamber_offset > empty_chambers)
+			chambers += "🌣"
+			empty_chambers ++
+		for (var/obj/item/ammo_casing/casing in loaded)
+			if (casing.BB)
+				chambers += "◉"
+			else
+				chambers += "◎"
+		while (max_shells > length(chambers))
+			chambers += "🌣"
+			empty_chambers ++
+		var/chamberlist = ""
+		for (var/chamber in chambers)
+			chamberlist += chamber
+		return chamberlist
+	return
 
 /obj/item/gun/projectile/proc/getAmmo()
 	var/bullets = 0

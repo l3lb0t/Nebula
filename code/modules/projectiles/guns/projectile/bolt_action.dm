@@ -14,7 +14,7 @@
 	one_hand_penalty = 2
 	load_sound = 'sound/weapons/guns/interaction/rifle_load.ogg'
 	fire_delay = 8
-	var/bolt_open = FALSE
+	var/bolt_open = TRUE
 
 /obj/item/gun/projectile/bolt_action/on_update_icon()
 	..()
@@ -53,8 +53,25 @@
 		to_chat(user, "<span class='notice'>You work the bolt closed.</span>")
 		playsound(src.loc, 'sound/weapons/guns/interaction/rifle_boltforward.ogg', 50, 1)
 		bolt_open = FALSE
+		if (length(loaded))
+			chambered = loaded[1]
+		else
+			chambered = null
 	add_fingerprint(user)
 	update_icon()
+
+/obj/item/gun/projectile/bolt_action/consume_next_projectile()
+	if(chambered)
+		return chambered.BB
+	return null
+
+/obj/item/gun/projectile/bolt_action/getAmmo()
+	var/bullets = 0
+	if (loaded)
+		bullets += length(loaded)
+	if (ammo_magazine && ammo_magazine.stored_ammo)
+		bullets += length(ammo_magazine.stored_ammo)
+	return bullets
 
 /obj/item/gun/projectile/bolt_action/special_check(mob/user)
 	if(bolt_open)
@@ -71,6 +88,15 @@
 	if(!bolt_open)
 		return FALSE
 	return ..()
+
+/obj/item/gun/projectile/bolt_action/draw_chambers()
+	if (chambered)
+		if (chambered.BB)
+			return "◉"
+		else
+			return "◎"
+	else
+		return "🌣"
 
 /obj/item/gun/projectile/bolt_action/sniper
 	name = "anti-materiel rifle"
