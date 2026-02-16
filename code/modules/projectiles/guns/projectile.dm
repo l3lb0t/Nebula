@@ -318,6 +318,15 @@
 		ammo_magazine = null
 		update_icon() //make sure to do this after unsetting ammo_magazine
 
+/obj/item/ammo_magazine/bash(obj/item/used_item, mob/user)
+	//Masters can reload one-handed guns one-handed.
+	if (istype(used_item, /obj/item/gun/projectile) && (used_item.loc == user || used_item.loc.loc == user)) //Get around bags, webbing, etc
+		var/obj/item/gun/projectile/held_gun = used_item
+		if (user.skill_check(SKILL_WEAPONS, SKILL_PROF))
+			if (held_gun.one_hand_penalty < 3)
+				held_gun.load_ammo(src, user)
+	. = ..()
+
 /obj/item/gun/projectile/get_examine_strings(mob/user, distance, infix, suffix)
 	. = ..()
 	if(is_jammed && user.skill_check(SKILL_WEAPONS, SKILL_BASIC))
