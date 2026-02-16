@@ -11,7 +11,10 @@
 	penetration_modifier = 1.0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 	muzzle_type = /obj/effect/projectile/muzzle/bullet
+	tracer_type = /obj/effect/projectile/tracer/bullet
+	impact_type = /obj/effect/projectile/impact/bullet
 	hitsound_non_mob = "ricochet"
+	hitscan = TRUE
 
 	var/mob_passthrough_check = 0
 	var/caliber

@@ -118,3 +118,9 @@
 	icon_state = "beam_heavy_white"
 	overlay_state = "_overlay"
 	light_color = COLOR_WHITE
+
+/obj/effect/projectile/tracer/bullet
+	icon_state = "bullet_tracer"
+	overlay_state = "_overlay"
+	light_color = LIGHT_COLOR_YELLOW
+	light_power = 0

@@ -88,8 +88,14 @@
 	icon_state = "impact_laser_white"
 	overlay_state = "_overlay"
 	light_color = COLOR_WHITE
-	
+
 /obj/effect/projectile/impact/variable_heavy
 	icon_state = "impact_laser_heavy_white"
 	overlay_state = "_overlay"
 	light_color = COLOR_WHITE
+
+/obj/effect/projectile/impact/bullet
+	icon_state = "bullet_impact"
+	overlay_state = "_overlay"
+	light_color = LIGHT_COLOR_YELLOW
+	light_power = 0
