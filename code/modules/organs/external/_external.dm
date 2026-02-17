@@ -637,7 +637,7 @@ This function completely restores a damaged organ to perfect condition.
 		internal_organ.remove_rejuv()
 	..()
 
-/obj/item/organ/external/proc/createwound(var/type = CUT, var/damage, var/surgical)
+/obj/item/organ/external/proc/createwound(var/type = CUT, var/damage, var/surgical, var/arterial = FALSE)
 
 	if(!owner || damage <= 0)
 		return
@@ -658,7 +658,7 @@ This function completely restores a damaged organ to perfect condition.
 	if(!surgical && (type in list(CUT, PIERCE, BRUISE)) && damage > 15 && local_damage > 30)
 
 		var/internal_damage
-		if(prob(damage) && sever_artery())
+		if(prob(damage + (arterial)*50) && sever_artery())
 			internal_damage = TRUE
 		if(prob(ceil(damage/4)) && sever_tendon())
 			internal_damage = TRUE

@@ -239,7 +239,7 @@
 		return 0
 
 	var/damage_mod = 1
-	var/damage_flags = used_item.damage_flags()
+	var/damage_flags = used_item.damage_flags() | DAM_ARTERY
 	//presumably, if they are wearing a helmet that stops pressure effects, then it probably covers the throat as well
 	var/force = used_item.expend_attack_force(user)
 	var/obj/item/clothing/head/helmet = affecting.get_equipped_item(slot_head_str)

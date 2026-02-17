@@ -83,7 +83,8 @@
 			//need to check sharp again here so that blunt damage that was strong enough to break skin doesn't give puncture wounds
 			if(sharp && !edge)
 				to_create = PIERCE
-		created_wound = createwound(to_create, brute)
+		var/arterial = damage_flags & DAM_ARTERY
+		created_wound = createwound(to_create, brute, arterial)
 
 	if(burn)
 		if(laser)
@@ -133,6 +134,7 @@
 		return FALSE
 
 	var/laser = (damage_flags & DAM_LASER)
+	var/sharp = (damage_flags & DAM_SHARP)
 
 	var/damage_amt = brute
 	var/cur_damage = brute_dam
@@ -144,36 +146,34 @@
 		return FALSE
 
 	var/organ_damage_threshold = 10
-	if(damage_flags & DAM_SHARP)
+	if(sharp || organ_tag == BP_HEAD)
 		organ_damage_threshold *= 0.5
 	if(laser)
 		organ_damage_threshold *= 2
-
-	if(!(cur_damage + damage_amt >= max_damage) && !(damage_amt >= organ_damage_threshold))
+	var/arterial = damage_flags & DAM_ARTERY
+	if(!(cur_damage + damage_amt >= max_damage) && !(damage_amt >= organ_damage_threshold + arterial * 50))
 		return FALSE
-
+	var/success = FALSE
 	var/list/victims = list()
-	var/organ_hit_chance = 0
 	for(var/obj/item/organ/internal/organ in internal_organs)
 		if(organ.get_organ_damage() < organ.max_damage)
-			victims[organ] = organ.relative_size
-			organ_hit_chance += organ.relative_size
+			victims[organ] = min(organ.relative_size + 3 * damage_amt/organ_damage_threshold, 100)
+			var/organ_chance = victims[organ]
+			if (!sharp)
+				organ_chance = min(100, organ_chance*1.5)
 
-	//No damageable organs
-	if(!length(victims))
-		return FALSE
-
-	organ_hit_chance += 5 * damage_amt/organ_damage_threshold
-
-	if(encased && !(status & ORGAN_BROKEN)) //ribs protect
-		organ_hit_chance *= 0.6
-
-	organ_hit_chance = min(organ_hit_chance, 100)
-	if(prob(organ_hit_chance))
-		var/obj/item/organ/internal/victim = pickweight(victims)
-		damage_amt -= max(damage_amt*victim.damage_reduction, 0)
-		victim.take_damage(damage_amt)
-		return TRUE
+			if(prob(organ_chance))
+				var/local_damage_reduction = 0
+				if(encased && !(status & ORGAN_BROKEN)) //ribs protect
+					local_damage_reduction += 0.35
+					if (damage_flags & DAM_SHARP)
+						local_damage_reduction += 0.25
+				damage_amt -= damage_amt*organ.damage_reduction
+				damage_amt -= damage_amt*local_damage_reduction
+				damage_amt = max(damage_amt, 0)
+				organ.take_damage(damage_amt)
+				success = TRUE
+	return success
 
 /obj/item/organ/external/heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(BP_IS_PROSTHETIC(src) && !robo_repair)

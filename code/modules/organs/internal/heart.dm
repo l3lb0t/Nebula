@@ -5,7 +5,7 @@
 	icon_state = "heart-on"
 	dead_icon = "heart-off"
 	prosthetic_icon = "heart-prosthetic"
-	damage_reduction = 0.7
+	damage_reduction = 0
 	relative_size = 5
 	max_damage = 45
 	var/pulse = PULSE_NORM

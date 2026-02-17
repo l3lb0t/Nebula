@@ -9,8 +9,8 @@
 	throw_range = 5
 	origin_tech = @'{"biotech":3}'
 	attack_verb = list("attacked", "slapped", "whacked")
-	relative_size = 85
-	damage_reduction = 0
+	relative_size = 40
+	damage_reduction = -2
 	scale_max_damage_to_species_health = FALSE
 	transfer_brainmob_with_organ = TRUE
 	_base_attack_force = 1
@@ -171,7 +171,7 @@
 
 /obj/item/organ/internal/brain/take_damage(damage, damage_type = BRUTE, damage_flags, inflicter, armor_pen = 0, silent, do_update_health)
 	. = ..()
-	if(owner && damage >= 10) //This probably won't be triggered by oxyloss or mercury. Probably.
+	if(owner && damage >= 10 && _organ_damage > 75) //This probably won't be triggered by oxyloss or mercury. Probably.
 		var/damage_secondary = damage * 0.20
 		owner.flash_eyes()
 		SET_STATUS_MAX(owner, STAT_BLURRY, damage_secondary)
