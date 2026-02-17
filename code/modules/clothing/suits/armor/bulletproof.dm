@@ -20,6 +20,7 @@
 		/decl/material/solid/gemstone/diamond = MATTER_AMOUNT_TRACE
 		)
 	origin_tech = @'{"materials":3,"engineering":1,"combat":3}'
+	agony_mod = 0.75
 
 /obj/item/clothing/suit/armor/bulletproof/prepared
 	starting_accessories = list(

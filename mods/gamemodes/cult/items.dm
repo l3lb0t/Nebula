@@ -105,6 +105,7 @@
 		ARMOR_ENERGY = ARMOR_ENERGY_RESISTANT,
 		ARMOR_BOMB = ARMOR_BOMB_PADDED
 	)
+	agony_mod = 0.75
 
 /obj/item/clothing/suit/cultrobes/magusred/Initialize()
 	. = ..()

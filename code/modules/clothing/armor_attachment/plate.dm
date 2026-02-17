@@ -18,6 +18,8 @@
 	)
 	origin_tech = @'{"materials":1,"engineering":1,"combat":1}'
 	draw_on_mob_when_equipped = FALSE
+	armor_degradation_speed = 0.3
+	agony_mod = 1
 
 /obj/item/clothing/armor_attachment/plate/get_fibers()
 	return null	//plates do not shed
@@ -56,3 +58,4 @@
 		/decl/material/solid/gemstone/diamond = MATTER_AMOUNT_TRACE
 	)
 	origin_tech = @'{"materials":3,"engineering":2,"combat":2}'
+	agony_mod = 0.9

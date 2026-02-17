@@ -47,3 +47,4 @@
 		ARMOR_RAD = ARMOR_RAD_MINOR
 	)
 	siemens_coefficient = 0.9
+	agony_mod = 0.75

@@ -73,6 +73,7 @@
 	action_button_name = "Toggle Visor"
 	var/up = 0
 	matter = list(/decl/material/solid/organic/cloth = MATTER_AMOUNT_SECONDARY)
+	agony_mod = 0.5
 
 /obj/item/clothing/head/helmet/riot/attack_self(mob/user)
 	up = !up

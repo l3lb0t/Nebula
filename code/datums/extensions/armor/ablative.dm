@@ -25,7 +25,33 @@
 				for(var/k in visible)
 					if(LAZYACCESS(last_reported_damage, k) != visible[k])
 						LAZYSET(last_reported_damage, k, visible[k])
-						to_chat(M, SPAN_WARNING("The [k] armor on your [holder] has [visible[k]] damage now!"))
+						if (visible[k] == "completely destroyed")
+							to_chat(M, SPAN_DANGER("The [k] armor on \the [holder] is [visible[k]]!"))
+						else
+							to_chat(M, SPAN_WARNING("The [k] armor on \the [holder] has [visible[k]] damage now!"))
+
+/datum/extension/armor/ablative/proc/repair_damage(damage_type, arg_key)
+	get_damage()
+	var/list/keys
+	switch (damage_type)
+		if (BRUTE)
+			keys = list(ARMOR_BULLET, ARMOR_BOMB, ARMOR_MELEE)
+		if (BURN)
+			keys = list(ARMOR_LASER, ARMOR_BOMB, ARMOR_ENERGY)
+		if (TOX)
+			keys = list(ARMOR_BIO)
+		if (IRRADIATE)
+			keys = list(ARMOR_RAD)
+		if (ELECTROCUTE)
+			keys = list(ARMOR_ENERGY)
+	if (arg_key)
+		keys = list(arg_key)
+	var/success = FALSE
+	for (var/key in keys)
+		if (0 < max_armor_values[key] - armor_values[key])
+			success = TRUE
+			set_value(key, max_armor_values[key])
+	return success
 
 /datum/extension/armor/ablative/proc/get_damage()
 	for(var/key in armor_values)
@@ -46,6 +72,8 @@
 				result[key] = "moderate"
 			if(26 to 50)
 				result[key] = "serious"
-			if(51 to 100)
+			if(51 to 99)
 				result[key] = "catastrophic"
+			if(100)
+				result[key] = "completely destroyed"
 	return result

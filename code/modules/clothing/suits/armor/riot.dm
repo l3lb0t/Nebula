@@ -19,6 +19,7 @@
 		/decl/material/solid/organic/cloth = MATTER_AMOUNT_SECONDARY
 		)
 	origin_tech = @'{"materials":1,"engineering":1,"combat":2}'
+	agony_mod = 0.5
 
 /obj/item/clothing/suit/armor/riot/prepared
 	starting_accessories = list(
@@ -45,6 +46,7 @@
 	material = /decl/material/solid/metal/steel
 	matter = list(/decl/material/solid/organic/cloth = MATTER_AMOUNT_SECONDARY)
 	origin_tech = @'{"materials":1,"engineering":1,"combat":2}'
+	agony_mod = 0.5
 
 /obj/item/clothing/gloves/armguards/riot
 	name = "riot arm guards"
@@ -62,4 +64,5 @@
 	material = /decl/material/solid/metal/steel
 	matter = list(/decl/material/solid/organic/cloth = MATTER_AMOUNT_SECONDARY)
 	origin_tech = @'{"materials":1,"engineering":1,"combat":2}'
+	agony_mod = 0.5
 

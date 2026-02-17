@@ -73,6 +73,7 @@
 	heat_protection = SLOT_UPPER_BODY|SLOT_LOWER_BODY|SLOT_TAIL
 	max_heat_protection_temperature = ARMOR_MAX_HEAT_PROTECTION_TEMPERATURE
 	siemens_coefficient = 0
+	agony_mod = 0.75
 
 /obj/item/clothing/suit/bomb_suit/Initialize()
 	. = ..()

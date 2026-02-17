@@ -324,7 +324,7 @@
 
 		var/list/check_gear = list(get_equipped_item(slot_wear_mask_str), get_equipped_item(slot_head_str))
 		if(rig)
-			var/datum/extension/armor/rig/armor_datum = get_extension(rig, /datum/extension/armor)
+			var/datum/extension/armor/ablative/rig/armor_datum = get_extension(rig, /datum/extension/armor)
 			if(istype(armor_datum) && armor_datum.sealed && rig.helmet == get_equipped_item(slot_head_str))
 				check_gear |= rig
 

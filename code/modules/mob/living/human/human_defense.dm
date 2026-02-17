@@ -85,6 +85,26 @@ meteor_act
 	// Add inherent armor to the end of list so that protective equipment is checked first
 	. += ..()
 
+/mob/living/human/get_thickness(obj/item/organ/external/def_zone)
+	if(!def_zone)
+		def_zone = ran_zone()
+	if(!istype(def_zone))
+		def_zone = GET_EXTERNAL_ORGAN(src, def_zone)
+	if(!def_zone)
+		return ..()
+
+	. = list()
+	for(var/slot in global.standard_clothing_slots)
+		var/obj/item/clothing/gear = get_equipped_item(slot)
+		if(!istype(gear))
+			continue
+		if(length(gear.accessories))
+			for(var/obj/item/clothing/accessory in gear.accessories)
+				if(accessory.body_parts_covered & def_zone.body_part)
+					. *= accessory.agony_mod
+		if(gear.body_parts_covered & def_zone.body_part)
+			. *= gear.armor
+
 /mob/living/human/resolve_item_attack(obj/item/I, mob/living/user, var/target_zone)
 
 	for (var/obj/item/grab/grab as anything in grabbed_by)

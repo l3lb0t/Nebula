@@ -81,6 +81,14 @@
 	)
 	calc_breach_damage()
 
+/obj/item/clothing/suit/space/proc/repair_armor(var/damtype, var/mob/user)
+	var/datum/extension/armor/ablative/armor_datum = get_extension(src, /datum/extension/armor)
+	if (istype(armor_datum) && armor_datum.repair_damage(damtype, null))
+		user.visible_message(
+			SPAN_NOTICE("\The [user] repairs the armor of \the [src]."),
+			SPAN_NOTICE("You repair the armor of \the [src].")
+		)
+
 /obj/item/clothing/suit/space/proc/create_breaches(var/damtype, var/amount)
 
 	amount -= src.breach_threshold
@@ -198,14 +206,18 @@
 				to_chat(user, SPAN_WARNING("You cannot repair \the [src] while it is being worn."))
 				return TRUE
 
+		var/obj/item/stack/P = used_item
+		var/use_amt = min(P.get_amount(), 3)
+		if(!use_amt || !P.use(use_amt))
+			return FALSE
+
+		repair_armor(BURN, user)
+
 		if(burn_damage <= 0)
 			to_chat(user, "There is no surface damage on \the [src] to repair.") //maybe change the descriptor to more obvious? idk what
 			return TRUE
 
-		var/obj/item/stack/P = used_item
-		var/use_amt = min(P.get_amount(), 3)
-		if(use_amt && P.use(use_amt))
-			repair_breaches(BURN, use_amt * repair_power, user)
+		repair_breaches(BURN, use_amt * repair_power, user)
 		return TRUE
 
 	else if(IS_WELDER(used_item))
@@ -216,13 +228,15 @@
 				to_chat(user, SPAN_WARNING("You cannot repair \the [src] while it is being worn."))
 				return TRUE
 
-		if (brute_damage <= 0)
-			to_chat(user, "There is no structural damage on \the [src] to repair.")
-			return TRUE
-
 		var/obj/item/weldingtool/welder = used_item
 		if(!welder.weld(5))
 			to_chat(user, SPAN_WARNING("You need more welding fuel to repair this suit."))
+			return TRUE
+
+		repair_armor(BRUTE, user)
+
+		if (brute_damage <= 0)
+			to_chat(user, "There is no structural damage on \the [src] to repair.")
 			return TRUE
 
 		repair_breaches(BRUTE, 3, user)

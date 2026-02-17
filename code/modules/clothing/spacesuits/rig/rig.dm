@@ -16,7 +16,7 @@
 	center_of_mass = null
 
 	// These values are passed on to all component pieces.
-	armor_type = /datum/extension/armor/rig
+	armor_type = /datum/extension/armor/ablative/rig
 	armor = list(
 		ARMOR_MELEE = ARMOR_MELEE_RESISTANT,
 		ARMOR_BULLET = ARMOR_BALLISTIC_MINOR,
@@ -41,6 +41,8 @@
 		/decl/material/solid/silicon              = MATTER_AMOUNT_REINFORCEMENT,
 		/decl/material/solid/metal/stainlesssteel = MATTER_AMOUNT_TRACE,
 	)
+	armor_degradation_speed = 0.1
+	var/agony_mod = 0.75
 
 	var/equipment_overlay_icon = 'icons/mob/onmob/onmob_rig_modules.dmi'
 	var/hides_uniform = 1 	//used to determinate if uniform should be visible whenever the suit is sealed or not
@@ -165,7 +167,7 @@
 			chest.allowed = allowed
 		verbs |= /obj/item/rig/proc/toggle_chest
 
-	for(var/obj/item/piece in list(gloves,helmet,boots,chest))
+	for(var/obj/item/clothing/piece in list(gloves,helmet,boots,chest))
 		if(!istype(piece))
 			continue
 		piece.canremove = 0
@@ -176,6 +178,7 @@
 		if(piece.siemens_coefficient > siemens_coefficient) //So that insulated gloves keep their insulation.
 			piece.siemens_coefficient = siemens_coefficient
 		piece.permeability_coefficient = permeability_coefficient
+		piece.agony_mod = agony_mod
 		if(islist(armor))
 			piece.armor = armor.Copy() // codex reads the armor list, not extensions. this list does not have any effect on in game mechanics
 			remove_extension(piece, /datum/extension/armor)
@@ -327,7 +330,7 @@
 							if(helmet)
 								helmet.update_light(wearer)
 					//sealed pieces become airtight, protecting against diseases
-					var/datum/extension/armor/rig/armor_datum = get_extension(piece, /datum/extension/armor)
+					var/datum/extension/armor/ablative/rig/armor_datum = get_extension(piece, /datum/extension/armor)
 					if(istype(armor_datum))
 						armor_datum.sealed = !seal_target
 					playsound(src, 'sound/machines/suitstorage_lockdoor.ogg', 10, 0)

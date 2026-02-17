@@ -75,6 +75,7 @@
 	gloves = /obj/item/clothing/gloves/rig/merc/heavy
 	boots =  /obj/item/clothing/shoes/rig/merc/heavy
 	chest =  /obj/item/clothing/suit/space/rig/merc/heavy
+	agony_mod = 0.5
 
 /obj/item/rig/merc/heavy/empty
 	initial_modules = list(

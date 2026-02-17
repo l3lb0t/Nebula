@@ -8,6 +8,8 @@
 	w_class = ITEM_SIZE_SMALL
 	icon_state = ICON_STATE_WORLD
 	_base_attack_force = 3
+	armor_type = /datum/extension/armor/ablative
+	armor_degradation_speed = 0.1
 
 	var/flash_protection = FLASH_PROTECTION_NONE	  // Sets the item's level of flash protection.
 	var/tint = TINT_NONE							  // Sets the item's level of visual impairment tint.
@@ -38,6 +40,7 @@
 	var/markings_color	// for things like colored parts of labcoats or shoes
 	var/should_display_id = TRUE
 	var/fallback_slot
+	var/agony_mod = 0.9
 
 /obj/item/clothing/get_equipment_tint()
 	return tint
@@ -319,8 +322,8 @@
 
 /obj/item/clothing/get_examine_strings(mob/user, distance, infix, suffix)
 	. = ..()
-	var/datum/extension/armor/ablative/armor_datum = get_extension(src, /datum/extension/armor/ablative)
-	if(istype(armor_datum) && LAZYLEN(armor_datum.get_visible_damage()))
+	var/datum/extension/armor/ablative/armor_datum = get_extension(src, /datum/extension/armor)
+	if(istype(armor_datum, /datum/extension/armor/ablative) && length(armor_datum.get_visible_damage()))
 		. += SPAN_WARNING("It has some <a href='byond://?src=\ref[src];list_armor_damage=1'>damage</a>.")
 
 	if(LAZYLEN(accessories))
@@ -377,7 +380,10 @@
 				var/list/damages = armor_datum.get_visible_damage()
 				to_chat(user, "\The [src] [html_icon(src)] has some damage:")
 				for(var/key in damages)
-					to_chat(user, "<li><b>[capitalize(damages[key])]</b> damage to the <b>[key]</b> armor.")
+					if (damages[key] == "completely destroyed")
+						to_chat(user, "<li><b>[capitalize(damages[key])]</b> <b>[key]</b> armor.")
+					else
+						to_chat(user, "<li><b>[capitalize(damages[key])]</b> damage to the <b>[key]</b> armor.")
 			return TOPIC_HANDLED
 	. = ..()
 

@@ -14,13 +14,18 @@
 
 	if(!damage)
 		return FALSE
-
+	var/list/before_armor = list(damage, damagetype, damage_flags)
 	var/list/after_armor = modify_damage_by_armor(def_zone, damage, damagetype, damage_flags, src, armor_pen, silent)
 	damage = after_armor[1]
 	damagetype = after_armor[2]
 	damage_flags = after_armor[3] // args modifications in case of parent calls
 	if(!damage)
 		return FALSE
+
+	if (before_armor[3] & DAM_SHARP)
+		var/agony_mod = get_thickness(def_zone)
+		var/raw_block = before_armor[1] - after_armor[1]
+		take_damage(raw_block * agony_mod, PAIN)
 
 	switch(damagetype)
 		if(BURN)
@@ -32,6 +37,9 @@
 		else
 			take_damage(damage, damagetype, damage_flags, used_weapon, armor_pen)
 	return TRUE
+
+/mob/living/proc/get_thickness(obj/item/organ/external/def_zone)
+	return 0.5
 
 /mob/living/apply_radiation(var/damage = 0)
 	if(!damage)

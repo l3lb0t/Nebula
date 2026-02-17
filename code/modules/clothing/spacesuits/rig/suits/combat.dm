@@ -87,6 +87,7 @@
 	online_slowdown = 1
 	offline_slowdown = 3
 	offline_vision_restriction = TINT_HEAVY
+	agony_mod = 0.75
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank,
