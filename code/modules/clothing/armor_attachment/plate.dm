@@ -20,6 +20,7 @@
 	draw_on_mob_when_equipped = FALSE
 	armor_degradation_speed = 0.3
 	agony_mod = 1
+	draw_on_mob_when_equipped = FALSE
 
 /obj/item/clothing/armor_attachment/plate/get_fibers()
 	return null	//plates do not shed
