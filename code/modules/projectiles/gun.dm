@@ -46,8 +46,8 @@
 	pickup_sound = 'sound/foley/pickup2.ogg'
 	can_be_twohanded = TRUE // also checks one_hand_penalty
 	needs_attack_dexterity = DEXTERITY_WEAPONS
-	wieldsound = 'sound/weapons/TargetOn.ogg'
-	unwieldsound = 'sound/weapons/TargetOff.ogg'
+	wieldsound = null
+	unwieldsound = null
 
 	var/fire_verb = "fire"
 	var/waterproof = FALSE
