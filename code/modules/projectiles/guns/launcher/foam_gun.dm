@@ -58,7 +58,7 @@
 	icon =  'icons/obj/guns/foam/pistol.dmi'
 	w_class = ITEM_SIZE_NORMAL
 	burst = 2
-	fire_delay = 12
+	fire_delay = 10
 	one_hand_penalty = 1
 	max_darts = 4
 

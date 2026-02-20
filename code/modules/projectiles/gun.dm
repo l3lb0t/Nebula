@@ -52,7 +52,7 @@
 	var/fire_verb = "fire"
 	var/waterproof = FALSE
 	var/burst = 1
-	var/fire_delay = 6 	//delay after shooting before the gun can be used again. Cannot be less than [burst_delay+1]
+	var/fire_delay = 4 	//delay after shooting before the gun can be used again. Cannot be less than [burst_delay+1]
 	var/burst_delay = 1	//delay between shots, if firing in bursts
 	var/fire_sound = 'sound/weapons/gunshot/gunshot.ogg'
 	var/fire_sound_text = "gunshot"

@@ -57,7 +57,7 @@
 	slot_flags = SLOT_LOWER_BODY|SLOT_HOLSTER
 	icon = 'mods/species/skrell/icons/gear/skrell_pistol.dmi'
 	max_shots = 10
-	fire_delay = 6
+	fire_delay = 4
 	one_hand_penalty = 1
 	self_recharge = 1
 	projectile_type = /obj/item/projectile/beam/stun
@@ -75,7 +75,7 @@
 	icon_state = ICON_STATE_WORLD
 	item_state = "skrell_rifle"
 	one_hand_penalty = 3
-	fire_delay = 10
+	fire_delay = 8
 	slowdown_held = 1
 	slowdown_worn = 1
 	removable_components = FALSE

@@ -6,7 +6,7 @@
 	icon_state = ICON_STATE_WORLD
 	safety_icon = "safety"
 	max_shots = 10
-	fire_delay = 10 // To balance for the fact that it is a pistol and can be used one-handed without penalty
+	fire_delay = 8 // To balance for the fact that it is a pistol and can be used one-handed without penalty
 
 	projectile_type = /obj/item/projectile/beam/stun
 	origin_tech = @'{"combat":3,"magnets":2}'

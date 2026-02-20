@@ -52,7 +52,7 @@ var/global/list/laser_wavelengths
 	charge_cost = 100
 	charge_meter = FALSE
 	accuracy = 2
-	fire_delay = 10
+	fire_delay = 8
 	slot_flags = SLOT_LOWER_BODY
 	material = /decl/material/solid/metal/steel
 	projectile_type = /obj/item/projectile/beam/variable
