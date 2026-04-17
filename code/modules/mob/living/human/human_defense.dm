@@ -93,7 +93,7 @@ meteor_act
 	if(!def_zone)
 		return ..()
 
-	. = list()
+	var/mod = 1
 	for(var/slot in global.standard_clothing_slots)
 		var/obj/item/clothing/gear = get_equipped_item(slot)
 		if(!istype(gear))
@@ -101,9 +101,10 @@ meteor_act
 		if(length(gear.accessories))
 			for(var/obj/item/clothing/accessory in gear.accessories)
 				if(accessory.body_parts_covered & def_zone.body_part)
-					. *= accessory.agony_mod
+					mod *= accessory.agony_mod
 		if(gear.body_parts_covered & def_zone.body_part)
-			. *= gear.armor
+			mod *= gear.agony_mod
+	return mod
 
 /mob/living/human/resolve_item_attack(obj/item/I, mob/living/user, var/target_zone)
 

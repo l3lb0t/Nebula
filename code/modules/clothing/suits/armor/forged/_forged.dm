@@ -4,7 +4,7 @@
 	material                  = /decl/material/solid/metal/steel
 	color                     = /decl/material/solid/metal/steel::color
 	material_alteration       = MAT_FLAG_ALTERATION_ALL
-	armor_degradation_speed   = 1
+	armor_degradation_speed   = 0.2
 	armor_type                = /datum/extension/armor/ablative
 	material_armor_multiplier = 1
 	valid_accessory_slots = list(

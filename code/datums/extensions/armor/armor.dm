@@ -61,7 +61,7 @@
 		if (armor < 0)
 			return 0
 		if (armor > 0)
-			return 0.95
+			return 0.98
 		else
 			return 0.5
 	armor = max(0, armor)

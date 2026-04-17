@@ -41,7 +41,7 @@
 		/decl/material/solid/silicon              = MATTER_AMOUNT_REINFORCEMENT,
 		/decl/material/solid/metal/stainlesssteel = MATTER_AMOUNT_TRACE,
 	)
-	armor_degradation_speed = 0.1
+	armor_degradation_speed = 0.075
 	var/agony_mod = 0.75
 
 	var/equipment_overlay_icon = 'icons/mob/onmob/onmob_rig_modules.dmi'

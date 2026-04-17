@@ -2,7 +2,7 @@
 
 /decl/material/proc/generate_armor_values()
 	if(is_brittle())
-		armor_degradation_speed = 1
+		armor_degradation_speed = 0.3
 	else
 		armor_degradation_speed = max(0.01, 0.5 * (200-integrity)/200)
 

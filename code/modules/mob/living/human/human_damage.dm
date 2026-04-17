@@ -374,12 +374,18 @@ This function restores all organs.
 
 	handle_suit_punctures(damagetype, damage, def_zone)
 
+	var/list/before_armor = list(damage, damagetype, damage_flags)
 	var/list/after_armor = modify_damage_by_armor(def_zone, damage, damagetype, damage_flags, src, armor_pen, silent)
 	damage = after_armor[1]
 	damagetype = after_armor[2]
 	damage_flags = after_armor[3]
 	if(!damage)
 		return 0
+
+	if (before_armor[3] & DAM_SHARP)
+		var/agony_mod = get_thickness(def_zone)
+		var/raw_block = before_armor[1] - damage
+		organ.add_pain(raw_block * agony_mod)
 
 	if(damage > 15 && prob(damage*4) && organ.can_feel_pain())
 		make_reagent(round(damage/10), /decl/material/liquid/adrenaline)

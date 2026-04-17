@@ -5,7 +5,7 @@
 	material_alteration = MAT_FLAG_ALTERATION_COLOR | MAT_FLAG_ALTERATION_NAME
 	icon = 'icons/clothing/suits/armor/improvised.dmi'
 	material = /decl/material/solid/metal/steel
-	armor_degradation_speed = 1
+	armor_degradation_speed = 0.2
 	armor_type = /datum/extension/armor/ablative
 	material_armor_multiplier = 1
 	valid_accessory_slots = list(ACCESSORY_SLOT_OVER, ACCESSORY_SLOT_INSIGNIA, ACCESSORY_SLOT_ARMOR_A, ACCESSORY_SLOT_ARMOR_L)

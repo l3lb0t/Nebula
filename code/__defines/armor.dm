@@ -2,12 +2,12 @@
 // Some levels are marked with what they intend to block in such way.
 
 #define  ARMOR_BALLISTIC_MINOR		5
-#define  ARMOR_BALLISTIC_SMALL		15  //Single shot protection against a pistol
-#define  ARMOR_BALLISTIC_PISTOL		30	//Multi-shot protection against a pistol
-#define  ARMOR_BALLISTIC_RESISTANT	40	//Single shot protection against a rifle
-#define  ARMOR_BALLISTIC_RIFLE		60	//Multi-shot protection against a rifle
-#define  ARMOR_BALLISTIC_AP			80
-#define  ARMOR_BALLISTIC_HEAVY		100
+#define  ARMOR_BALLISTIC_SMALL		15
+#define  ARMOR_BALLISTIC_PISTOL		30
+#define  ARMOR_BALLISTIC_RESISTANT	60
+#define  ARMOR_BALLISTIC_RIFLE		90
+#define  ARMOR_BALLISTIC_AP			150
+#define  ARMOR_BALLISTIC_HEAVY		200
 
 #define  ARMOR_LASER_MINOR			10
 #define  ARMOR_LASER_SMALL			25	//Blocks small e-guns
